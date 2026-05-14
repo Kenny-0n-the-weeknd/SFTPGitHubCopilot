@@ -55,6 +55,12 @@ You can also install from the terminal:
 code --install-extension .\ftp-sftp-copilot-1.0.0.vsix
 ```
 
+Or download and install it in one PowerShell command:
+
+```powershell
+Invoke-WebRequest -Uri "https://github.com/Kenny-0n-the-weeknd/SFTPGitHubCopilot/releases/latest/download/ftp-sftp-copilot-1.0.0.vsix" -OutFile "$env:TEMP\ftp-sftp-copilot-1.0.0.vsix"; code --install-extension "$env:TEMP\ftp-sftp-copilot-1.0.0.vsix" --force
+```
+
 ## How To Use
 
 1. Open the **FTP/SFTP + CoPilot** view in the VS Code Explorer.
