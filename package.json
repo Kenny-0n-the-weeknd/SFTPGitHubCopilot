@@ -1,0 +1,255 @@
+{
+  "name": "ftp-sftp-copilot",
+  "displayName": "FTP/SFTP + CoPilot",
+  "description": "Make live changes to your FTP/SFTP site with CoPilot directly in VS Code, without waiting on GitHub load times, repository sync delays, or GitHub workflow issues.",
+  "version": "1.0.0",
+  "publisher": "kenny-0n-the-weeknd",
+  "author": "Kenny-0n-The-Weeknd",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kenny-0n-the-weeknd/SFTPGitHubCopilot.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "ftp",
+    "sftp",
+    "remote",
+    "explorer",
+    "files",
+    "copilot",
+    "live-editing"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "remoteExplorer.addConnection",
+        "title": "Remote Explorer: Add New Connection",
+        "icon": "$(add)"
+      },
+      {
+        "command": "remoteExplorer.startConnection",
+        "title": "Remote Explorer: Connect",
+        "icon": "$(debug-start)"
+      },
+      {
+        "command": "remoteExplorer.stopConnection",
+        "title": "Remote Explorer: Disconnect",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "remoteExplorer.editConnection",
+        "title": "Remote Explorer: Edit Connection",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "remoteExplorer.deleteConnection",
+        "title": "Remote Explorer: Delete Connection",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "remoteExplorer.refreshConnections",
+        "title": "Remote Explorer: Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "remoteExplorer.disconnectAll",
+        "title": "Remote Explorer: Disconnect All"
+      },
+      {
+        "command": "remoteExplorer.openRemoteFile",
+        "title": "Remote Explorer: Open File"
+      },
+      {
+        "command": "remoteExplorer.uploadFile",
+        "title": "Remote Explorer: Upload File",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "remoteExplorer.downloadFile",
+        "title": "Remote Explorer: Download File"
+      },
+      {
+        "command": "remoteExplorer.deleteRemote",
+        "title": "Remote Explorer: Delete Remote File/Folder",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "remoteExplorer.renameRemote",
+        "title": "Remote Explorer: Rename Remote File/Folder"
+      },
+      {
+        "command": "remoteExplorer.createRemoteFolder",
+        "title": "Remote Explorer: Create Remote Folder",
+        "icon": "$(new-folder)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "remoteExplorer.addConnection",
+          "when": "view == remoteExplorer.connections",
+          "group": "navigation"
+        },
+        {
+          "command": "remoteExplorer.refreshConnections",
+          "when": "view == remoteExplorer.connections",
+          "group": "navigation"
+        },
+        {
+          "command": "remoteExplorer.disconnectAll",
+          "when": "view == remoteExplorer.connections",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "remoteExplorer.startConnection",
+          "when": "view == remoteExplorer.connections && viewItem == connection_stopped",
+          "group": "inline"
+        },
+        {
+          "command": "remoteExplorer.stopConnection",
+          "when": "view == remoteExplorer.connections && viewItem == connection_running",
+          "group": "inline"
+        },
+        {
+          "command": "remoteExplorer.editConnection",
+          "when": "view == remoteExplorer.connections && viewItem =~ /connection_/",
+          "group": "context"
+        },
+        {
+          "command": "remoteExplorer.deleteConnection",
+          "when": "view == remoteExplorer.connections && viewItem =~ /connection_/",
+          "group": "context"
+        },
+        {
+          "command": "remoteExplorer.uploadFile",
+          "when": "view == remoteExplorer.connections && viewItem =~ /^(folder|remote_folder)/",
+          "group": "inline"
+        },
+        {
+          "command": "remoteExplorer.deleteRemote",
+          "when": "view == remoteExplorer.connections && viewItem =~ /^(remote_file|remote_folder)$/",
+          "group": "context"
+        },
+        {
+          "command": "remoteExplorer.renameRemote",
+          "when": "view == remoteExplorer.connections && viewItem =~ /^(remote_file|remote_folder)$/",
+          "group": "context"
+        },
+        {
+          "command": "remoteExplorer.createRemoteFolder",
+          "when": "view == remoteExplorer.connections && viewItem =~ /^(folder|remote_folder)$/",
+          "group": "context"
+        },
+        {
+          "command": "remoteExplorer.downloadFile",
+          "when": "view == remoteExplorer.connections && viewItem =~ /^(remote_file)$/",
+          "group": "context"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "remoteExplorer.startConnection",
+          "when": "false"
+        },
+        {
+          "command": "remoteExplorer.stopConnection",
+          "when": "false"
+        },
+        {
+          "command": "remoteExplorer.editConnection",
+          "when": "false"
+        },
+        {
+          "command": "remoteExplorer.deleteConnection",
+          "when": "false"
+        },
+        {
+          "command": "remoteExplorer.uploadFile",
+          "when": "false"
+        },
+        {
+          "command": "remoteExplorer.deleteRemote",
+          "when": "false"
+        },
+        {
+          "command": "remoteExplorer.renameRemote",
+          "when": "false"
+        },
+        {
+          "command": "remoteExplorer.createRemoteFolder",
+          "when": "false"
+        },
+        {
+          "command": "remoteExplorer.downloadFile",
+          "when": "false"
+        },
+        {
+          "command": "remoteExplorer.openRemoteFile",
+          "when": "false"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "remoteExplorer.connections",
+          "name": "FTP/SFTP + CoPilot",
+          "contextualTitle": "FTP/SFTP + CoPilot"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "FTP/SFTP + CoPilot",
+      "properties": {
+        "remoteExplorer.defaultTimeout": {
+          "type": "number",
+          "default": 30000,
+          "description": "Default connection timeout in milliseconds"
+        },
+        "remoteExplorer.localCachePath": {
+          "type": "string",
+          "default": "",
+          "description": "Default local path to use as a cache/workspace folder for remote files"
+        },
+        "remoteExplorer.preserveConnectionsOnClose": {
+          "type": "boolean",
+          "default": false,
+          "description": "Keep connections alive when VS Code closes"
+        },
+        "remoteExplorer.pinWorkspaceEditors": {
+          "type": "boolean",
+          "default": true,
+          "description": "Disable preview-tab reuse for remote workspace folders so multiple remote files can stay open at once"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "package": "npx --yes @vscode/vsce package --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/ssh2": "^1.15.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "basic-ftp": "^5.0.5",
+    "ssh2": "^1.15.0"
+  }
+}

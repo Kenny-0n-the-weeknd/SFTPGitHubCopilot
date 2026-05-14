@@ -1,0 +1,13 @@
+src/**
+.vscode/**
+.git/**
+.gitignore
+*.vsix
+patch*.js
+tsconfig.json
+**/*.map
+**/*.tsbuildinfo
+node_modules/**/*.md
+node_modules/**/test/**
+node_modules/**/tests/**
+node_modules/**/.github/**
