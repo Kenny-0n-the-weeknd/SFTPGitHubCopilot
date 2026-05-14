@@ -12,9 +12,9 @@ FTP/SFTP + CoPilot helps you make live changes to your site without waiting on G
 
 ## Download
 
-Download the latest installable VSIX from this repository:
+Download the latest installable VSIX from GitHub Releases:
 
-**[Download FTP/SFTP + CoPilot v1.0.0](https://github.com/Kenny-0n-the-weeknd/SFTPGitHubCopilot/raw/main/ftp-sftp-copilot-1.0.0.vsix)**
+**[Download FTP/SFTP + CoPilot v1.0.0](https://github.com/Kenny-0n-the-weeknd/SFTPGitHubCopilot/releases/latest/download/ftp-sftp-copilot-1.0.0.vsix)**
 
 You can also install it from a local checkout:
 
