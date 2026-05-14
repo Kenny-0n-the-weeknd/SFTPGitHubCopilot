@@ -14,7 +14,7 @@ FTP/SFTP + CoPilot helps you make live changes to your site without waiting on G
 
 Download the latest installable VSIX from GitHub Releases:
 
-**[Download FTP/SFTP + CoPilot v1.0.0](https://github.com/Kenny-0n-the-weeknd/SFTPGitHubCopilot/releases/latest/download/ftp-sftp-copilot-1.0.0.vsix)**
+**[Download FTP/SFTP + CoPilot v1.0.0](https://github.com/Kenny-0n-the-weeknd/SFTPGitHubCopilot/releases/download/v1.0.0/ftp-sftp-copilot-1.0.0.vsix)**
 
 You can also install it from a local checkout:
 
@@ -58,7 +58,7 @@ code --install-extension .\ftp-sftp-copilot-1.0.0.vsix
 Or download and install it in one PowerShell command:
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/Kenny-0n-the-weeknd/SFTPGitHubCopilot/releases/latest/download/ftp-sftp-copilot-1.0.0.vsix" -OutFile "$env:TEMP\ftp-sftp-copilot-1.0.0.vsix"; code --install-extension "$env:TEMP\ftp-sftp-copilot-1.0.0.vsix" --force
+$vsix = "$env:TEMP\ftp-sftp-copilot-1.0.0.vsix"; curl.exe -L "https://github.com/Kenny-0n-the-weeknd/SFTPGitHubCopilot/releases/download/v1.0.0/ftp-sftp-copilot-1.0.0.vsix" -o $vsix; code --install-extension $vsix --force
 ```
 
 ## How To Use
