@@ -102,7 +102,7 @@ async function showConnectionForm(context, existing) {
                         port: Number(data.port),
                         username: data.username,
                         authMethod: data.authMethod,
-                        remoteRoot: data.remoteRoot || '/',
+                        remoteRoot: (0, utils_1.absoluteRemotePath)(data.remoteRoot || '/'),
                         localCachePath: data.localCachePath || undefined,
                         timeout: Number(data.timeout) || 30000,
                         passiveMode: data.passiveMode === true || data.passiveMode === 'true',

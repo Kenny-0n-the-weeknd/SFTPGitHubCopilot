@@ -8,7 +8,7 @@
 
 import * as vscode from 'vscode';
 import { ConnectionConfig, Protocol, AuthMethod } from '../types';
-import { generateId, logInfo } from '../utils';
+import { absoluteRemotePath, generateId, logInfo } from '../utils';
 
 /**
  * Show the connection form webview.
@@ -84,7 +84,7 @@ export async function showConnectionForm(
               port: Number(data.port),
               username: data.username,
               authMethod: data.authMethod as AuthMethod,
-              remoteRoot: data.remoteRoot || '/',
+              remoteRoot: absoluteRemotePath(data.remoteRoot || '/'),
               localCachePath: data.localCachePath || undefined,
               timeout: Number(data.timeout) || 30000,
               passiveMode: data.passiveMode === true || data.passiveMode === 'true',

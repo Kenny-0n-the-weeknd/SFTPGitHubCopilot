@@ -42,6 +42,7 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RemoteTreeDataProvider = void 0;
 const vscode = __importStar(require("vscode"));
+const utils_1 = require("../utils");
 /**
  * Top-level tree item representing a single connection.
  * Children are remote file entries (only when connected).
@@ -93,7 +94,7 @@ class RemoteFolderTreeItem extends vscode.TreeItem {
         this.iconPath = vscode.ThemeIcon.Folder;
         this.contextValue = 'remote_folder';
         this.tooltip = `Remote path: ${entry.path}\nModified: ${new Date(entry.stat.mtime).toLocaleString()}`;
-        this.resourceUri = vscode.Uri.parse(`remote-${connectionId}://${entry.path.replace(/^\/+/, '')}`);
+        this.resourceUri = (0, utils_1.remoteUriForPath)(`remote-${connectionId}`, entry.path);
     }
 }
 /** Tree item representing a remote file. */
@@ -108,7 +109,7 @@ class RemoteFileTreeItem extends vscode.TreeItem {
         this.iconPath = vscode.ThemeIcon.File;
         this.contextValue = 'remote_file';
         this.tooltip = `Remote path: ${entry.path}\nSize: ${entry.stat.size} bytes\nModified: ${new Date(entry.stat.mtime).toLocaleString()}`;
-        this.resourceUri = vscode.Uri.parse(`remote-${connectionId}://${entry.path.replace(/^\/+/, '')}`);
+        this.resourceUri = (0, utils_1.remoteUriForPath)(`remote-${connectionId}`, entry.path);
         // Clicking a file opens it in the editor
         this.command = {
             title: 'Open Remote File',

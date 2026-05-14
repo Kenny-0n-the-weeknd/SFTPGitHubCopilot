@@ -10,7 +10,7 @@
 import * as vscode from 'vscode';
 import { IAdapter } from '../adapters/interface';
 import { ConnectionConfig, RemoteDirectoryEntry } from '../types';
-import { remoteStatToFileStat } from '../utils';
+import { absoluteRemotePath, remoteStatToFileStat } from '../utils';
 
 interface CachedDirectory {
   expiresAt: number;
@@ -58,13 +58,10 @@ export class RemoteFileSystemProvider implements vscode.FileSystemProvider {
    */
   private toRemotePath(uri: vscode.Uri): string {
     // The URI looks like: remote-<id>:///path/to/file
-    let p = uri.path;
-    // Remove leading slashes
-    p = p.replace(/^\/+/, '');
-    if (p) {
-      return '/' + p;
-    }
-    return '/';
+    // Recover authority too, so older malformed URIs like remote-<id>://path/to/file
+    // do not lose their first path segment.
+    const p = uri.authority ? `/${uri.authority}${uri.path}` : uri.path;
+    return absoluteRemotePath(p);
   }
 
   watch(): vscode.Disposable {

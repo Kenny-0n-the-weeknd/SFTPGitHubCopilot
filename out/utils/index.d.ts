@@ -32,6 +32,14 @@ export declare function showInfo(message: string): void;
  */
 export declare function normaliseRemotePath(input: string): string;
 /**
+ * Normalise a remote path and ensure it is absolute for workspace URIs.
+ */
+export declare function absoluteRemotePath(input: string): string;
+/**
+ * Build a custom remote filesystem URI without accidentally assigning authority.
+ */
+export declare function remoteUriForPath(scheme: string, remotePath: string): vscode.Uri;
+/**
  * Join two remote path segments with a forward slash.
  */
 export declare function joinRemotePath(base: string, ...segments: string[]): string;

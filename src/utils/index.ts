@@ -67,6 +67,21 @@ export function normaliseRemotePath(input: string): string {
 }
 
 /**
+ * Normalise a remote path and ensure it is absolute for workspace URIs.
+ */
+export function absoluteRemotePath(input: string): string {
+  const path = normaliseRemotePath(input || '/');
+  return path.startsWith('/') ? path : '/' + path;
+}
+
+/**
+ * Build a custom remote filesystem URI without accidentally assigning authority.
+ */
+export function remoteUriForPath(scheme: string, remotePath: string): vscode.Uri {
+  return vscode.Uri.from({ scheme, path: absoluteRemotePath(remotePath) });
+}
+
+/**
  * Join two remote path segments with a forward slash.
  */
 export function joinRemotePath(base: string, ...segments: string[]): string {

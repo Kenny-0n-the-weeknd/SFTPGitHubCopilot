@@ -43,6 +43,8 @@ exports.showError = showError;
 exports.showWarning = showWarning;
 exports.showInfo = showInfo;
 exports.normaliseRemotePath = normaliseRemotePath;
+exports.absoluteRemotePath = absoluteRemotePath;
+exports.remoteUriForPath = remoteUriForPath;
 exports.joinRemotePath = joinRemotePath;
 exports.dirnameRemote = dirnameRemote;
 exports.basenameRemote = basenameRemote;
@@ -106,6 +108,19 @@ function normaliseRemotePath(input) {
         path = path.slice(0, -1);
     }
     return path || '/';
+}
+/**
+ * Normalise a remote path and ensure it is absolute for workspace URIs.
+ */
+function absoluteRemotePath(input) {
+    const path = normaliseRemotePath(input || '/');
+    return path.startsWith('/') ? path : '/' + path;
+}
+/**
+ * Build a custom remote filesystem URI without accidentally assigning authority.
+ */
+function remoteUriForPath(scheme, remotePath) {
+    return vscode.Uri.from({ scheme, path: absoluteRemotePath(remotePath) });
 }
 /**
  * Join two remote path segments with a forward slash.

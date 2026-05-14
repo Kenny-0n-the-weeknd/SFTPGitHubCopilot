@@ -11,6 +11,7 @@ import * as path from 'path';
 import { ConnectionManager } from '../manager/connectionManager';
 import { ConnectionState, RemoteDirectoryEntry } from '../types';
 import { CONNECTIONS_VIEW_ID } from '../constants';
+import { remoteUriForPath } from '../utils';
 
 /** A union type for items that can appear in the tree. */
 type TreeItem =
@@ -70,7 +71,7 @@ class RemoteFolderTreeItem extends vscode.TreeItem {
     this.iconPath = vscode.ThemeIcon.Folder;
     this.contextValue = 'remote_folder';
     this.tooltip = `Remote path: ${entry.path}\nModified: ${new Date(entry.stat.mtime).toLocaleString()}`;
-    this.resourceUri = vscode.Uri.parse(`remote-${connectionId}://${entry.path.replace(/^\/+/, '')}`);
+    this.resourceUri = remoteUriForPath(`remote-${connectionId}`, entry.path);
   }
 }
 
@@ -85,7 +86,7 @@ class RemoteFileTreeItem extends vscode.TreeItem {
     this.iconPath = vscode.ThemeIcon.File;
     this.contextValue = 'remote_file';
     this.tooltip = `Remote path: ${entry.path}\nSize: ${entry.stat.size} bytes\nModified: ${new Date(entry.stat.mtime).toLocaleString()}`;
-    this.resourceUri = vscode.Uri.parse(`remote-${connectionId}://${entry.path.replace(/^\/+/, '')}`);
+    this.resourceUri = remoteUriForPath(`remote-${connectionId}`, entry.path);
 
     // Clicking a file opens it in the editor
     this.command = {

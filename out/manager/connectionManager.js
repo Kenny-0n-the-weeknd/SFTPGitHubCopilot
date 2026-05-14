@@ -84,6 +84,7 @@ class ConnectionManager {
         for (const config of configs) {
             // Sanitize any host that was accidentally saved with a URL scheme
             config.host = config.host.replace(/^[a-zA-Z][a-zA-Z0-9+\-.]*:\/\//, '').split('/')[0];
+            config.remoteRoot = (0, utils_1.absoluteRemotePath)(config.remoteRoot || '/');
             this.states.set(config.id, {
                 config,
                 status: 'stopped',
@@ -113,6 +114,7 @@ class ConnectionManager {
         config.id = config.id || (0, utils_1.generateId)();
         // Strip any URL scheme the user may have typed into the host field
         config.host = config.host.replace(/^[a-zA-Z][a-zA-Z0-9+\-.]*:\/\//, '').split('/')[0];
+        config.remoteRoot = (0, utils_1.absoluteRemotePath)(config.remoteRoot || '/');
         this.states.set(config.id, {
             config,
             status: 'stopped',
@@ -132,6 +134,9 @@ class ConnectionManager {
         // Sanitize host in case it contains a URL scheme
         if (partial.host) {
             partial.host = partial.host.replace(/^[a-zA-Z][a-zA-Z0-9+\-.]*:\/\//, '').split('/')[0];
+        }
+        if (partial.remoteRoot) {
+            partial.remoteRoot = (0, utils_1.absoluteRemotePath)(partial.remoteRoot);
         }
         Object.assign(state.config, partial);
         await this.saveConnections();
@@ -223,7 +228,7 @@ class ConnectionManager {
             // Add the remote root as a workspace folder so it appears in the Explorer sidebar
             // and becomes available to Copilot. If it already exists, this does nothing.
             const scheme = `remote-${id}`;
-            const remoteRootUri = vscode.Uri.parse(`${scheme}:///${state.config.remoteRoot.replace(/^\/+/, '')}`);
+            const remoteRootUri = (0, utils_1.remoteUriForPath)(scheme, state.config.remoteRoot);
             const wf = vscode.workspace.workspaceFolders;
             const exists = wf?.some(f => f.uri.scheme === scheme);
             if (!exists) {
@@ -327,8 +332,7 @@ class ConnectionManager {
             await this.startConnection(connectionId, false);
         }
         const scheme = `remote-${connectionId}`;
-        const cleanPath = remotePath.replace(/^\/+/, '');
-        const uri = vscode.Uri.parse(`${scheme}:///${cleanPath}`);
+        const uri = (0, utils_1.remoteUriForPath)(scheme, remotePath);
         const doc = await vscode.workspace.openTextDocument(uri);
         await vscode.window.showTextDocument(doc, { preview: false });
     }

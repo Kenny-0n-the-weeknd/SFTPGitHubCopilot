@@ -80,13 +80,10 @@ class RemoteFileSystemProvider {
      */
     toRemotePath(uri) {
         // The URI looks like: remote-<id>:///path/to/file
-        let p = uri.path;
-        // Remove leading slashes
-        p = p.replace(/^\/+/, '');
-        if (p) {
-            return '/' + p;
-        }
-        return '/';
+        // Recover authority too, so older malformed URIs like remote-<id>://path/to/file
+        // do not lose their first path segment.
+        const p = uri.authority ? `/${uri.authority}${uri.path}` : uri.path;
+        return (0, utils_1.absoluteRemotePath)(p);
     }
     watch() {
         // We cannot efficiently watch remote directories, but we must
