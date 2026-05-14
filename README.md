@@ -52,13 +52,13 @@ code --install-extension .\ftp-sftp-copilot-1.0.0.vsix
 You can also install from the terminal:
 
 ```powershell
-code --install-extension .\ftp-sftp-copilot-1.0.0.vsix
+$codeCmd = Join-Path $env:LOCALAPPDATA "Programs\Microsoft VS Code\bin\code.cmd"; & $codeCmd --install-extension .\ftp-sftp-copilot-1.0.0.vsix --force
 ```
 
 Or download and install it in one PowerShell command:
 
 ```powershell
-$vsix = "$env:TEMP\ftp-sftp-copilot-1.0.0.vsix"; curl.exe -L "https://github.com/Kenny-0n-the-weeknd/SFTPGitHubCopilot/releases/download/v1.0.0/ftp-sftp-copilot-1.0.0.vsix" -o $vsix; code --install-extension $vsix --force
+$vsix = "$env:TEMP\ftp-sftp-copilot-1.0.0.vsix"; curl.exe -L "https://github.com/Kenny-0n-the-weeknd/SFTPGitHubCopilot/releases/download/v1.0.0/ftp-sftp-copilot-1.0.0.vsix" -o $vsix; $codeCmd = Join-Path $env:LOCALAPPDATA "Programs\Microsoft VS Code\bin\code.cmd"; & $codeCmd --install-extension $vsix --force
 ```
 
 ## How To Use
